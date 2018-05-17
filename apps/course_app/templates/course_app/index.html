@@ -1,0 +1,69 @@
+<html>
+<head>
+  <title>Add a Student to all bootcamp courses</title>
+    {% load static %}
+   <link rel="stylesheet" href="{% static 'course_app/css/main.css' %}" media="screen" title="no title"  charset="utf-8">
+<style>
+ .tf button{
+  display:block;
+ }
+ .tf input textarea
+    {
+      
+      display:inline-block;
+    }
+
+table form input{
+     background:none!important;
+     color:blue;
+     border:none; 
+     padding:0!important;
+     font: inherit;
+     border-bottom:1px solid blue; 
+     cursor: pointer;
+     display:inline-block;
+}
+</style>
+  </head>
+<body>
+{% for e in errorlist %}
+ <p>  {{e}}  </p>
+ {% endfor %}
+<div class="wrapper"> 
+ <h1>Add a new course</h1>
+ <div class="tf"> <form action='/add_course' method='POST'> 
+  {% csrf_token %}
+    <label for="cname">Name: </label><input  name="coursename" type="text" id="cname" >
+    <p>Description:</p><textarea  name="description" type="textarea" id="descta" rows="4" cols="50" ></textarea>
+     <input  name="addbutton" type="submit" value="add" >
+ </form>
+ </div>
+
+ <h1>Courses:</h1>
+ 
+  <table border="1">
+  
+ <thead>
+  <tr>
+    <th>Course Name</th>
+    <th>Description</th> 
+    <th>Date Added</th>
+    <th>Actions</th>
+   </tr>
+</thead>
+<tbody>  
+    {% for course in courses %}
+  <tr>
+    <td> {{course.name }}</td>
+    <td> {{course.desc }}</td>
+    <td> {{course.created_at }}</td>
+    <td> <form action='/show_delete' method='POST'> {% csrf_token %} <input  name="cid" type="hidden" value="{{ course.id }}"> 
+    <input type="submit" value="remove"> </form> </td>
+  </tr>
+     {% endfor %}
+</tbody> 
+</table>
+
+</div>
+</body>
+</html>

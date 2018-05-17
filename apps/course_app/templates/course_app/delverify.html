@@ -1,0 +1,27 @@
+<html>
+<head>
+  <title>Delete a Course</title>
+    <style>
+    form
+    {
+      display:inline-block;
+   vertical-align:top;
+    }
+   
+    </style>
+    
+  </head>
+<body>
+<H1>Are you sure you want to delete the following course?</H1>
+<p> Name: {{ course.name }} </p>
+<p> Description: {{ course.desc }} </p>
+ <form action='/remove_course'> 
+  {% csrf_token %}
+     <input  name="rbutton" type="submit" value="Yes I want to delete this">
+ </form>
+<form action='/'> 
+  {% csrf_token %}
+     <input  name="nbutton" type="submit" value="No" id="no">
+ </form> 
+</body>
+</html>
